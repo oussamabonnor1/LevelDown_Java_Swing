@@ -31,6 +31,10 @@ public class Pannau extends JPanel {
             if (!begin) {
                 table[i - 2] = new ArrayList<Enemy>();
                 enemyCreator(table[i - 2], i);
+
+                if (!begin) {
+                    enemiesMover(table);
+                }
             }
             g.setColor(Color.white);
             for (int j = 0; j < table[i - 2].size(); j++) {
@@ -39,6 +43,8 @@ public class Pannau extends JPanel {
             }
         }
         begin = true;
+
+
     }
 
     public void enemyCreator(ArrayList<Enemy> arrayList, int level) {
@@ -46,6 +52,28 @@ public class Pannau extends JPanel {
         for (int i = 0; i < getWidth() / lenght; i++) {
             Enemy e = new Enemy(30, 50, i * (getWidth() / lenght), level * 50);
             arrayList.add(e);
+        }
+    }
+
+    public void enemiesMover(ArrayList[] table) {
+
+
+        for (int k = 0; k < 3; k++) {
+
+            //for (int i = 0; i < table.length; i++) {
+                //int a = i;
+                for (int j = 0; j < table[0].size(); j++) {
+                    Enemy e = (Enemy) table[0].get(j);
+                    e.setPosX(e.getPosX() + 20);
+                    table[0].set(j, e);
+                }
+            //}
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            repaint();
         }
     }
 
